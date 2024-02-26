@@ -2,7 +2,6 @@ import Home from "./Home";
 import About from "./About";
 import Register from "./Register";
 import Login from "./Login";
-import "./App.css";
 import { AuthProvider, useAuth } from "./Authcontext";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -31,3 +30,4 @@ const PrivateRoute = ({ element }) => {
 };
 
 export default App;
+

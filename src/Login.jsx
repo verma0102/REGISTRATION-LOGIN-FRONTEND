@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Card, CardContent, Grid, TextField, Stack, Typography } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,64 +18,58 @@ const Login = () => {
       e.target["email"].value == storeMail &&
       e.target["password"].value == stopPassword
     ) {
-      console.log("login successfully");
       login("0123456789abcdefghijklmnopqrstuvwxyz");
       history("/");
     } else {
       if (e.target["email"].value !== storeMail) {
-        console.log("email is incorrect");
         setEmailError("Email is a incorrect");
       }
       if (e.target["password"].value !== stopPassword) {
-        console.log("password is incorrect");
         setPasswordError("password is incorrect");
       }
     }
   };
   return (
-    <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Enter userName:</label>
-          <input
-            type="text"
-            placeholder="Enter Your name"
-            id="name"
-            name="name"
-          />
-          <br />
-          <br />
-          <label htmlFor="email">Enter userEmail:</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter Your Email"
-            name="email"
-          />
-          <br />
-          <br />
-          {emailError && <p>{emailError}</p>}
+    <div className="content">
+      <Card style={{ maxWidth: 300, margin: '0 auto', padding: '10px 5px' }}>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={1}>
+              <Grid xs={12} item>
+                <Typography sx={{ color: 'black' }} align="center">LOGIN IN</Typography>
+              </Grid>
 
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            id="password"
-            name="password"
-          />
+              <Grid xs={12} item  >
+                <TextField name='email' type="email" label="Email" size="small" placeholder="Enter Your Email ID" variant="outlined" fullWidth required />
+              </Grid>
+              {emailError && <p>{emailError}</p>}
+              <Grid xs={12} item>
+                <TextField name='password' type="password" label="Password" size="small" placeholder="Enter Your Password" variant="outlined" fullWidth required />
+              </Grid>
+              <Stack direction='row-reverse' spacing={1} margin={'0 auto'} padding={'10px 13px '}>
+                <Button type="submit" variant="contained" size="small">
+                  Login
+                </Button>
+                {passwordError && <p>{passwordError}</p>}
+                <Link to="/register">
+                  <Button variant="contained" size="small" startIcon={<SendIcon />}>
+                    Register
+                  </Button>
+                </Link>
+              </Stack>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
 
-          {passwordError && <p>{passwordError}</p>}
-          <Button type="submit" variant="contained" size="small">
-            Login
-          </Button>
-        </form>
-        <Link to="/register">
-          <Button variant="contained" size="small">
-            Register Page
-          </Button>
-        </Link>
-      </div>
-    </>
   );
 };
 export default Login;
+
+
+
+
+
+
+
