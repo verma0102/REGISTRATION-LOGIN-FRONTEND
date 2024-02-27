@@ -1,6 +1,6 @@
 import Menubar from "./Menubar";
 
-const Home = () => {
+const Contact = () => {
     return (
         <>
             <Menubar />
@@ -12,4 +12,4 @@ const Home = () => {
         </>
     )
 }
-export default Home;
+export default Contact;

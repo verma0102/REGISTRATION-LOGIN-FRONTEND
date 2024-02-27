@@ -14,12 +14,16 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Collapse,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import { Link } from "react-router-dom";
 
 const drawerWidth = 220;
 const openedMixin = (theme) => ({
@@ -99,6 +103,12 @@ const Menubar = () => {
     setOpen(false);
   };
 
+  const [openSubMenu, setOpenSubMenu] = React.useState(false);
+
+  const handleSubMenuClick = () => {
+    setOpenSubMenu(!openSubMenu);
+  }
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -131,40 +141,64 @@ const Menubar = () => {
             )}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+          <ListItem disablePadding>
+            <ListItemButton onClick={handleSubMenuClick}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Main" />
+              {openSubMenu ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          </ListItem>
+          <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <MailIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <Link to="/">
+                  <ListItemText primary="Home" />
+                </Link>
+
               </ListItemButton>
-            </ListItem>
-          ))}
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <Link to="/About">
+                  <ListItemText primary="About" />
+                </Link>
+              </ListItemButton>
+            </List>
+          </Collapse>
         </List>
+
+
+
         <Divider />
       </Drawer>
+      {/* <Box component="main" sx={{ flexGrow: 1, p: 6 }}>
+        <DrawerHeader />
+        <Typography paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+      </Box> */}
     </Box>
   );
 };
 export default Menubar;
-
-
-
-
 
 
